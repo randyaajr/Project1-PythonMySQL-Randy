@@ -7,18 +7,24 @@ mydb = mysql.connector.connect(
  
 )
 
+print(mydb)
+
 mycursor = mydb.cursor()
+mycursor.execute("SHOW DATABASES")
+
+print(mycursor)
+
+for db in mycursor:
+    print(db)
 
 
-mycursor.execute ("CREATE DATABASE PyDB_Demo")
 
+mycursor.execute("USE PyDB_Demo")
 
-mycursor.execute ("USE  PyDB_Demo")
-
-
-mycursor.execute("CREATE TABLE employees  (emp_id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(40) NOT NULL, last_name VARCHAR(40) NOT NULL, email VARCHAR(50) NOT NULL UNIQUE, job_title VARCHAR(40) NOT NULL, date_hired DATE NOT NULL, salary DEC CHECK ( salary >= 15000 AND salary <= 50000) ))")
+mycursor.execute("CREATE TABLE IF NOT EXISTS employees (EmpId int primary key auto_increment, first_name VARCHAR(40), last_name VARCHAR(40), email VARCHAR(50), Job_Title VARCHAR(40), Hire_Date date, Salary decimal check ( salary >= 15000 AND salary <=50000))")
 
 
 mycursor.execute("SHOW TABLES")
 for table in mycursor:
-  print(table)
+    print(table)
+
